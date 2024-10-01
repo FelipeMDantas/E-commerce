@@ -24,6 +24,8 @@ const ShopContextProvider = (props) => {
       cartData[itemId] = {};
       cartData[itemId][size] = 1;
     }
+
+    setCartItems(cartData);
   };
 
   const value = {
@@ -34,6 +36,8 @@ const ShopContextProvider = (props) => {
     setSearch,
     showSearch,
     setShowSearch,
+    cartItems,
+    addToCart,
   };
 
   return (
