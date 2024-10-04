@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
+import Title from "../components/Title";
 
 const Cart = () => {
   const { products, currency, cartItems } = useContext(ShopContext);
@@ -19,9 +20,24 @@ const Cart = () => {
         }
       }
     }
+    setCartData(tempData);
   }, [cartItems]);
 
-  return <div>Cart</div>;
+  return (
+    <div className="border-t pt-14">
+      <div className="text-2xl mb-3">
+        <Title text1="YOUR" text2="CART" />
+      </div>
+
+      <div>
+        {cartData.map((item, index) => {
+          const productData = products.find(
+            (product) => product._id === item._id
+          );
+        })}
+      </div>
+    </div>
+  );
 };
 
 export default Cart;
