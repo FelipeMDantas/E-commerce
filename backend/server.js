@@ -1,9 +1,11 @@
 import express from "express";
 import "dotenv/config";
 import cors from "cors";
+import connectToDB from "./config/mongodb.js";
 
 const app = express();
 const port = process.env.PORT || 4000;
+connectToDB();
 
 app.use(express.json());
 app.use(cors());
