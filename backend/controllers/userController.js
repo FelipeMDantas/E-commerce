@@ -38,7 +38,14 @@ const registerUser = async (req, res) => {
     const newUser = new userModel({ name, email, password: hashedPassword });
 
     const user = await newUser.save();
-  } catch (error) {}
+
+    const token = createToken(user._id);
+
+    res.json({ success: true, token });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
 };
 
 const adminLogin = async (req, res) => {};
