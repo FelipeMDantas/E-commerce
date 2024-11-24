@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { backendUrl } from "../App";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -7,6 +9,11 @@ const Login = () => {
   const onSubmitHandler = async (e) => {
     try {
       e.preventDefault();
+      const response = await axios.post(backendUrl + "/api/user/admin", {
+        email,
+        password,
+      });
+      console.log(response);
     } catch (error) {}
   };
 
@@ -24,6 +31,8 @@ const Login = () => {
               type="email"
               placeholder="your@email.com"
               required
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
           </div>
           <div className="mb-3 min-w-72">
@@ -33,9 +42,16 @@ const Login = () => {
               type="password"
               placeholder="Enter your password"
               required
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
             />
           </div>
-          <button type="submit">Login</button>
+          <button
+            type="submit"
+            className="mt-2 w-full py-2 px-4 rounded-md text-white bg-black"
+          >
+            Login
+          </button>
         </form>
       </div>
     </div>
