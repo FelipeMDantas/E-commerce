@@ -15,8 +15,27 @@ const Add = () => {
   const [bestseller, setBestseller] = useState(false);
   const [sizes, setSizes] = useState([]);
 
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      const formData = new FormData();
+
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("category", category);
+      formData.append("subCategory", subCategory);
+      formData.append("bestseller", bestseller);
+      formData.append("sizes", JSON.stringify(sizes));
+    } catch (error) {}
+  };
+
   return (
-    <form className="flex flex-col w-full items-start gap-3">
+    <form
+      onSubmit={onSubmitHandler}
+      className="flex flex-col w-full items-start gap-3"
+    >
       <div>
         <p className="mb-2">Upload Image</p>
 
@@ -152,7 +171,7 @@ const Add = () => {
             <p
               className={`${
                 sizes.includes("S") ? "bg-pink-100" : "bg-slate-200"
-              }px-3 py-1 cursor-pointer`}
+              } px-3 py-1 cursor-pointer`}
             >
               S
             </p>
@@ -169,7 +188,7 @@ const Add = () => {
             <p
               className={`${
                 sizes.includes("M") ? "bg-pink-100" : "bg-slate-200"
-              }px-3 py-1 cursor-pointer`}
+              } px-3 py-1 cursor-pointer`}
             >
               M
             </p>
@@ -186,7 +205,7 @@ const Add = () => {
             <p
               className={`${
                 sizes.includes("L") ? "bg-pink-100" : "bg-slate-200"
-              }px-3 py-1 cursor-pointer`}
+              } px-3 py-1 cursor-pointer`}
             >
               L
             </p>
@@ -203,7 +222,7 @@ const Add = () => {
             <p
               className={`${
                 sizes.includes("XL") ? "bg-pink-100" : "bg-slate-200"
-              }px-3 py-1 cursor-pointer`}
+              } px-3 py-1 cursor-pointer`}
             >
               XL
             </p>
@@ -220,7 +239,7 @@ const Add = () => {
             <p
               className={`${
                 sizes.includes("XXL") ? "bg-pink-100" : "bg-slate-200"
-              }px-3 py-1 cursor-pointer`}
+              } px-3 py-1 cursor-pointer`}
             >
               XXL
             </p>
@@ -229,7 +248,12 @@ const Add = () => {
       </div>
 
       <div className="flex gap-2 mt-2">
-        <input type="checkbox" id="bestseller" />
+        <input
+          onClick={() => setBestseller((prev) => !prev)}
+          checked={bestseller}
+          type="checkbox"
+          id="bestseller"
+        />
         <label htmlFor="bestseller" className="cursor-pointer">
           Add to Bestseller
         </label>
