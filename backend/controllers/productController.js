@@ -10,7 +10,7 @@ const addProduct = async (req, res) => {
       category,
       subCategory,
       sizes,
-      bestSeller,
+      bestseller,
     } = req.body;
 
     const image1 = req.files.image1 && req.files.image1[0];
