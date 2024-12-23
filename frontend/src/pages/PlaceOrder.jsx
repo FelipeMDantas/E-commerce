@@ -6,10 +6,30 @@ import { ShopContext } from "../context/ShopContext";
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    street: "",
+    city: "",
+    state: "",
+    zipcode: "",
+    country: "",
+    phone: "",
+  });
+
+  const onChangeHandler = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    setFormData((data) => ({ ...data, [name]: value }));
+  };
+
   const { navigate } = useContext(ShopContext);
 
   return (
-    <div className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t">
+    <form className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t">
       <div className="flex flex-col gap-4 w-full sm:max-w-[480px]">
         <div className="text-xl sm:text-2xl my-3">
           <Title text1="DELIVERY" text2="INFORMATION" />
@@ -19,17 +39,26 @@ const PlaceOrder = () => {
             type="text"
             placeholder="First Name"
             className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+            onChange={onChangeHandler}
+            name="firstName"
+            value={formData.firstName}
           />
           <input
             type="text"
             placeholder="Last Name"
             className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+            onChange={onChangeHandler}
+            name="lastName"
+            value={formData.lastName}
           />
         </div>
         <input
           type="email"
           placeholder="Email Address"
           className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+          onChange={onChangeHandler}
+          name="email"
+          value={formData.email}
         />
         <input
           type="text"
@@ -121,7 +150,7 @@ const PlaceOrder = () => {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
