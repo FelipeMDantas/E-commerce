@@ -7,7 +7,8 @@ import { ShopContext } from "../context/ShopContext";
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
 
-  const { navigate, cartItems } = useContext(ShopContext);
+  const { navigate, cartItems, products, getCartAmount, delivery_fee } =
+    useContext(ShopContext);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -48,7 +49,11 @@ const PlaceOrder = () => {
           }
         }
 
-        console.log(orderItems);
+        let orderData = {
+          address: formData,
+          items: orderItems,
+          amount: getCartAmount() + delivery_fee,
+        };
       }
     } catch (error) {}
   };
