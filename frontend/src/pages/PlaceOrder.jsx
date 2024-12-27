@@ -73,10 +73,6 @@ const PlaceOrder = () => {
             { headers: { token } }
           );
 
-          console.log(token)
-
-          console.log(response);
-
           if (response.data.success) {
             setCartItems({});
             navigate("/orders");
