@@ -1,11 +1,31 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "../components/Title";
+import axios from "axios";
 
 const Orders = () => {
   const { backendUrl, token, currency } = useContext(ShopContext);
 
   const [orderData, setOrderData] = useState([]);
+
+  const loadOrderData = async () => {
+    try {
+      if (!token) {
+        return null;
+      }
+
+      const response = await axios.post(
+        backendUrl + "/api/order/userorders",
+        {},
+        { headers: { token } }
+      );
+      console.log(response.data);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    loadOrderData();
+  }, [token]);
 
   return (
     <div className="border-t pt-16">
