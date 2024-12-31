@@ -19,7 +19,22 @@ const Orders = () => {
         {},
         { headers: { token } }
       );
-      console.log(response.data);
+
+      if (response.data.success) {
+        let allOrdersItem = [];
+
+        response.data.orders.map((order) => {
+          order.items.map((item) => {
+            item["status"] = order.status;
+            item["payment"] = order.payment;
+            item["paymentMethod"] = order.paymentMethod;
+            item["date"] = order.date;
+
+            allOrdersItem.push(item);
+          });
+        });
+        setOrderData(allOrdersItem.reverse());
+      }
     } catch (error) {}
   };
 
@@ -49,11 +64,18 @@ const Orders = () => {
                     {currency}
                     {item.price}
                   </p>
-                  <p>Quantity: 1</p>
-                  <p>Size: M</p>
+                  <p>Quantity: {item.quantity}</p>
+                  <p>Size: {item.size}</p>
                 </div>
                 <p className="mt-2">
-                  Date <span className="text-gray-400">25, Jul, 2024</span>
+                  Date:{" "}
+                  <span className="text-gray-400">
+                    {new Date(item.date).toDateString()}
+                  </span>
+                </p>
+                <p className="mt-2">
+                  Payment Method:{" "}
+                  <span className="text-gray-400">{item.paymentMethod}</span>
                 </p>
               </div>
             </div>
