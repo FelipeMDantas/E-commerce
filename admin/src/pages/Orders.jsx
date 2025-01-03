@@ -60,7 +60,9 @@ const Orders = ({ token }) => {
                   }
                 })}
               </div>
-              <p>{order.address.firstName + "" + order.address.lastName}</p>
+              <p className="mt-3 mb-2 font-medium">
+                {order.address.firstName + "" + order.address.lastName}
+              </p>
               <div>
                 <p>{order.address.street + ", "}</p>
                 <p>
@@ -77,16 +79,18 @@ const Orders = ({ token }) => {
             </div>
 
             <div>
-              <p>Items: {order.items.length}</p>
-              <p>Method: {order.paymentMethod}</p>
+              <p className="text-sm sm:text-[15px]">
+                Items: {order.items.length}
+              </p>
+              <p className="mt-3">Method: {order.paymentMethod}</p>
               <p>Payment: {order.payment ? "Done" : "Pending"}</p>
               <p>Date: {new Date(order.date).toLocaleDateString()}</p>
             </div>
-            <p>
+            <p className="text-sm sm:text-[15px]">
               {currency}
               {order.amount}
             </p>
-            <select>
+            <select value={order.status} className="p-2 font-semibold">
               <option value="Order Placed">Order Placed</option>
               <option value="Packing">Packing</option>
               <option value="Shipped">Shipped</option>
