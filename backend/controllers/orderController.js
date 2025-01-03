@@ -1,5 +1,8 @@
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
+import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const placeOrder = async (req, res) => {
   try {
@@ -26,7 +29,22 @@ const placeOrder = async (req, res) => {
   }
 };
 
-const placeOrderStripe = async (req, res) => {};
+const placeOrderStripe = async (req, res) => {
+  try {
+    const { userId, items, amount, address } = req.body;
+    const { origin } = req.headers;
+
+    const orderData = {
+      userId,
+      items,
+      address,
+      amount,
+      paymentMethod: "COD",
+      payment: false,
+      date: Date.now(),
+    };
+  } catch (error) {}
+};
 
 const placeOrderRazorPay = async (req, res) => {};
 
