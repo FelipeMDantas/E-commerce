@@ -2,6 +2,9 @@ import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 import Stripe from "stripe";
 
+const currency = "inr";
+const deliveryCharge = 10;
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const placeOrder = async (req, res) => {
@@ -39,10 +42,35 @@ const placeOrderStripe = async (req, res) => {
       items,
       address,
       amount,
-      paymentMethod: "COD",
+      paymentMethod: "Stripe",
       payment: false,
       date: Date.now(),
     };
+
+    const newOrder = new orderModel(orderData);
+    await newOrder.save();
+
+    const line_items = items.map((item) => ({
+      price_data: {
+        currency: currency,
+        product_data: {
+          name: item.name,
+        },
+        unit_amount: item.price * 100,
+      },
+      quantity: item.quantity,
+    }));
+
+    line_items.push({
+      price_data: {
+        currency: currency,
+        product_data: {
+          name: "Delivery Charges",
+        },
+        unit_amount: deliveryCharge * 100,
+      },
+      quantity: 1,
+    });
   } catch (error) {}
 };
 
