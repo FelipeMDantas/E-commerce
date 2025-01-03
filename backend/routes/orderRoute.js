@@ -13,7 +13,7 @@ import {
 const orderRouter = express.Router();
 
 orderRouter.get("/list", adminAuth, allOrders);
-orderRouter.get("/status", adminAuth, updateStatus);
+orderRouter.post("/status", adminAuth, updateStatus);
 
 orderRouter.post("/place", authUser, placeOrder);
 orderRouter.post("/stripe", authUser, placeOrderStripe);
