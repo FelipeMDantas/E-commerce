@@ -71,7 +71,19 @@ const placeOrderStripe = async (req, res) => {
       },
       quantity: 1,
     });
-  } catch (error) {}
+
+    const session = await stripe.checkout.sessions.create({
+      success_url: `${origin}/verify?success=true&orderId=${newOrder._id}`,
+      cancel_url: `${origin}/verify?success=false&orderId=${newOrder._id}`,
+      line_items,
+      mode: "payment",
+    });
+
+    res.json({ success: true, session_url: session.url });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
 };
 
 const placeOrderRazorPay = async (req, res) => {};
