@@ -9,6 +9,7 @@ import {
   Orders,
   PlaceOrder,
   Product,
+  Verify
 } from "./pages";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/verify" element={<Verify />} />
       </Routes>
       <Footer />
     </div>
