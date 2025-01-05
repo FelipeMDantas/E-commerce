@@ -2,7 +2,7 @@ import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 import Stripe from "stripe";
 
-const currency = "inr";
+const currency = "us";
 const deliveryCharge = 10;
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -80,6 +80,24 @@ const placeOrderStripe = async (req, res) => {
     });
 
     res.json({ success: true, session_url: session.url });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+const verifyStripe = async (req, res) => {
+  const { orderId, success, userId } = req.body;
+
+  try {
+    if (success === "true") {
+      await orderModel.findByIdAndUpdate(orderId, { payment: true });
+      await userModel.findByIdAndUpdate(userId, { cartData: {} });
+      res.json({ success: true });
+    } else {
+      await orderModel.findByIdAndDelete(orderId);
+      res.json({ success: false });
+    }
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
