@@ -39,6 +39,10 @@ const PlaceOrder = () => {
     setFormData((data) => ({ ...data, [name]: value }));
   };
 
+  const initPay = (order) => {
+    const options = {};
+  };
+
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     try {
@@ -97,6 +101,17 @@ const PlaceOrder = () => {
           }
 
           break;
+
+        case "razorpay":
+          const responseRazorpay = await axios.post(
+            backendUrl + "/api/order/razorpay",
+            orderData,
+            { headers: { token } }
+          );
+
+          if (response.data.success) {
+            console.log(responseRazorpay.data.order);
+          }
 
         default:
           break;
