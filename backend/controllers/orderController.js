@@ -145,6 +145,14 @@ const placeOrderRazorPay = async (req, res) => {
   }
 };
 
+const verifyRazorpay = async (req, res) => {
+  try {
+    const { userId, razorpay_order_id } = req.body;
+
+    const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id);
+  } catch (error) {}
+};
+
 const allOrders = async (req, res) => {
   try {
     const orders = await orderModel.find({});
@@ -187,4 +195,5 @@ export {
   updateStatus,
   userOrders,
   verifyStripe,
+  verifyRazorpay,
 };
