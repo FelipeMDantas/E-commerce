@@ -1,6 +1,6 @@
 # E-Commerce
 
-## A fashionable fashion e-commerce application..
+## A fashionable fashion e-commerce application.
 
 ![Felipe|E-Commerce](https://img.shields.io/badge/FelipeMDantas-ECommerce-white)
 
