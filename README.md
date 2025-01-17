@@ -2,7 +2,7 @@
 
 ## A fashionable fashion e-commerce application..
 
-![Felipe|E-Commerce](https://img.shields.io/badge/FelipeMDantas-E-Commerce-white)
+![Felipe|E-Commerce](https://img.shields.io/badge/FelipeMDantas-ECommerce-white)
 
 <p>
 
